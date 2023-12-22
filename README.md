@@ -1,4 +1,4 @@
-# Android device tree for Nokia Nokia 5.3 (CAP_sprout)
+# Android device tree for Nokia 5.3 (cap_sprout)
 
 ```
 #

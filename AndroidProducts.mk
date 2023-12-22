@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_CAP_sprout.mk
+    $(LOCAL_DIR)/twrp_cap_sprout.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_CAP_sprout-user \
-    omni_CAP_sprout-userdebug \
-    omni_CAP_sprout-eng
+    twrp_cap_sprout-user \
+    twrp_cap_sprout-userdebug \
+    twrp_cap_sprout-eng
