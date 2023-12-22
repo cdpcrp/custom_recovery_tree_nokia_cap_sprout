@@ -26,13 +26,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.1-impl-qti.recovery \
     android.hardware.boot@1.1-service
 
-PRODUCT_PACKAGES += \
-    otapreopt_script \
-    cppreopts.sh \
-    update_engine \
-    update_verifier \
-    update_engine_sideload
-
 # Decryption
 PRODUCT_PACKAGES += \
     qcom_decrypt \
@@ -40,6 +33,12 @@ PRODUCT_PACKAGES += \
 
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# F2FS Utilities
+PRODUCT_PACKAGES += \
+    sg_write_buffer \
+    f2fs_io \
+    check_f2fs
 
 # Fastboot/D HAL
 PRODUCT_PACKAGES += \
@@ -72,3 +71,14 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
+
+# Update Engine
+PRODUCT_PACKAGES += \
+    otapreopt_script \
+    cppreopts.sh \
+    update_engine \
+    update_verifier \
+    update_engine_sideload
+
+PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client
