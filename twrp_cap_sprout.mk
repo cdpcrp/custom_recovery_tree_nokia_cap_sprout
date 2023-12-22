@@ -24,6 +24,6 @@ PRODUCT_MANUFACTURER := nokia
 PRODUCT_GMS_CLIENTID_BASE := android-nokia
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="trinket-user 11 RKQ1.211130.001 1 release-keys"
+    PRIVATE_BUILD_DESC="cap_sprout-user 12 SKQ1.211130.001 00WW_3_490 release-keys"
 
-BUILD_FINGERPRINT := Nokia/CaptainAmerica_00WW/cap_sprout:11/RKQ1.211130.001/00WW_3_40A:user/release-keys
+BUILD_FINGERPRINT := Nokia/CaptainAmerica_00WW/cap_sprout:12/SKQ1.211230.001/00WW_3_490:user/release-keys
