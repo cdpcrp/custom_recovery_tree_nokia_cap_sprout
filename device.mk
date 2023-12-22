@@ -35,6 +35,11 @@ PRODUCT_PACKAGES += \
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
+# Fastboot/D HAL
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.1-impl-mock \
+    fastbootd
+
 # Recovery Modules
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hidl.allocator@1.0 \
