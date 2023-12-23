@@ -109,6 +109,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+TARGET_VENDOR_PROP := $(DEVICE_PATH)/vendor.prop
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
@@ -132,6 +133,7 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_NO_FLASH_CURRENT_TWRP := true # For A/B devices that has dedicated recovery, removing that option in Advance.
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_HAS_MTP := true
+TW_FORCE_KEYMASTER_VER := true
 
 # Maintainer/Version
 TW_DEVICE_VERSION := Crypton
