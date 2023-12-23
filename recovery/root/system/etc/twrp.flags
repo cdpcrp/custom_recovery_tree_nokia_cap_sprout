@@ -39,7 +39,7 @@
 
 # External Partitions
 /external_sd        vfat        /dev/block/mmcblk1p1    /dev/block/mmcblk1                      flags=display="External Storage";storage;wipeingui;removable
-/storage/usbotg     vfat        /devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.0.auto            lags=display="USB Storage";storage;wipeingui;removable
+/usb_otg     auto        /dev/block/sda1 /dev/block/sda            flags=display="USB Storage";storage;wipeingui;removable
 
 # Other Partitions
 /bluetooth          vfat      /dev/block/bootdevice/by-name/bluetooth        flags=slotselect;backup=1
