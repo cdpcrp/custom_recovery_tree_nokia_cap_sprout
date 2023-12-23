@@ -14,6 +14,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+    FILESYSTEM_TYPE_vendor=ext4 \
+    POSTINSTALL_OPTIONAL_vendor=true
+
 # API/SDK Version
 PRODUCT_SHIPPING_API_LEVEL := 29
 BOARD_SYSTEMSDK_VERSIONS := 30
@@ -32,6 +38,9 @@ PRODUCT_PACKAGES += \
 
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Enable Fuse Passthrough
+PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
 
 # F2FS Utilities
 PRODUCT_PACKAGES += \
@@ -81,3 +90,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
+
+# Userdata checkpoint
+PRODUCT_PACKAGES += \
+    checkpoint_gc
