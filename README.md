@@ -13,7 +13,7 @@ Buils your own custom recovery for Nokia 5.3 (CAP_sprout).
 | Model                   | CAP_sprout |
 
 # Features
-- [X] Internal Storage (Yes, encryption works!)
+- [X] Internal Storage (Yes, decryption works!)
 - [X] External Storage (Both OTG and MicroSD.)
 - [X] Touchpanel
 - [X] Brightness
