@@ -134,4 +134,4 @@ TW_H_OFFSET := -60
 TW_FRAMERATE := 60
 
 # Maintainer/Version
-TW_DEVICE_VERSION := Crypton
+# TW_DEVICE_VERSION will be moved in version.mk for build automation and semantics.

@@ -1,0 +1,101 @@
+name: TWRP
+
+on:
+  push:
+    branches:
+      - 'twrp-12.1'
+
+    paths:
+      - 'version.mk'
+
+jobs:
+  build:
+    name: Build TWRP by ${{ github.actor }}
+    runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    permissions:
+      contents: write
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v3
+
+    - name: Cleanup
+      uses: rokibhasansagar/slimhub_actions@main
+
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 12
+
+    - name: Prepare the environment
+      run: |
+        sudo apt update
+        sudo apt -y upgrade
+        sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5 libgflags-dev
+        sudo add-apt-repository universe
+        sudo apt -y install libncurses5
+
+    - name: Install OpenJDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'
+
+    - name: Install Git-Repo
+      run: |
+        mkdir ~/bin
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        sudo ln -sf ~/bin/repo /usr/bin/repo
+
+    - name: Initialize Repo
+      run: |
+        mkdir twrp
+        cd twrp
+        git config --global user.name "Carlo Dee"
+        git config --global user.email "carlodee.official@proton.me"
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+        repo sync -j$(nproc --all) --force-sync
+
+    - name: Clone Device Tree
+      run: |
+        cd twrp
+        git clone https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout.git -b twrp-12.1 ./device/nokia/cap_sprout
+        cd device/nokia/cap_sprout
+        echo "COMMIT_ID=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+    - name: Building Image
+      run: |
+        cd twrp
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch twrp_cap_sprout-eng && make clean && make recoveryimage -j$(nproc --all)
+        cd out/target/product/cap_sprout
+        mv boot.img twrp-recovery-${{ github.run_id }}.img
+        echo "Done building your twrp-recovery-${{ github.run_id }}.img"
+
+    - name: Set Properties
+      run: |
+        echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+        echo -e \
+        "
+        ## Unofficial Build for Nokia 5.3 (CAP_sprout)
+        _Note: Flash at your own risk. This build were still in the process of testing._
+        ### Resources
+        * [TWRP Manifest](https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp/tree/twrp-12.1)
+        * [Device Tree](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/tree/twrp-12.1)
+        ### Features
+        * [What's working?](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/tree/twrp-12.1?tab=readme-ov-file#features)
+        ### Trigger Event
+        _This build were compiled by triggering branch twrp-12.1 of current tree, triggered by a push event in [version makefile](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/blob/twrp-12.1/version.mk)._
+        * [Last Commit](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/commit/${{ env.COMMIT_ID }})
+        " > changelog.txt
+
+    - name: Upload to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          twrp/out/target/product/cap_sprout/twrp-recovery-${{ github.run_id }}.img
+        name: TWRP Release Build for Nokia 5.3 (CAP_sprout) // ${{ env.BUILD_DATE }}
+        tag_name: ${{ github.run_id }}
+        body_path: changelog.txt
