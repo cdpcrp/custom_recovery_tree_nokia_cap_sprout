@@ -71,7 +71,7 @@ jobs:
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch twrp_cap_sprout-eng && make clean && make recoveryimage -j$(nproc --all)
         cd out/target/product/cap_sprout
-        mv boot.img twrp-recovery-${{ github.run_id }}.img
+        mv recovery.img twrp-recovery-${{ github.run_id }}.img
         echo "Done building your twrp-recovery-${{ github.run_id }}.img"
 
     - name: Set Properties
