@@ -134,4 +134,4 @@ TW_H_OFFSET := -60
 TW_FRAMERATE := 60
 
 # Maintainer/Version
-TW_DEVICE_VERSION := Crypton
+include $(DEVICE_PATH)version.mk
