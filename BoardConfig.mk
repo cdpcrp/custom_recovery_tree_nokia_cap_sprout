@@ -134,4 +134,4 @@ TW_H_OFFSET := -60
 TW_FRAMERATE := 60
 
 # Maintainer/Version
-include $(DEVICE_PATH)version.mk
+include $(DEVICE_PATH)/version.mk
