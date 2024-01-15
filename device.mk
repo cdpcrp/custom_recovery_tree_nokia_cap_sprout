@@ -22,9 +22,9 @@ AB_OTA_POSTINSTALL_CONFIG += \
 
 # API/SDK Version
 PRODUCT_SHIPPING_API_LEVEL := 29
-BOARD_SHIPPING_API_LEVEL := 29
-BOARD_API_LEVEL := 29
-SHIPPING_API_LEVEL := 29
+BOARD_SHIPPING_API_LEVEL := $(PRODUCT_SHIPPING_API_LEVEL)
+BOARD_API_LEVEL := $(PRODUCT_SHIPPING_API_LEVEL)
+SHIPPING_API_LEVEL := 2$(PRODUCT_SHIPPING_API_LEVEL)
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
@@ -39,7 +39,6 @@ PRODUCT_PACKAGES += \
 
 # Dynamic
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # F2FS Utilities
 PRODUCT_PACKAGES += \
@@ -83,13 +82,17 @@ RECOVERY_LIBRARY_SOURCE_FILES += \
 PRODUCT_PACKAGES += \
     checkpoint_gc
 
-# Update Engine
+# Update Script
 PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
+
+# Update Engine
+PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload
 
+# Update Engine Debug
 PRODUCT_PACKAGES_DEBUG += \
     update_engine_client
