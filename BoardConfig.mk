@@ -34,9 +34,6 @@ TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a9
 
-# APEX
-DEXPREOPT_GENERATE_APEX_IMAGE := true
-
 # Block
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 
@@ -138,6 +135,7 @@ TW_USE_TOOLBOX := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_NO_FLASH_CURRENT_TWRP := true # For A/B devices that has dedicated recovery, removing that option in Advance.
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXCLUDE_APEX := true
 TW_HAS_MTP := true
 TW_FORCE_KEYMASTER_VER := true
 TW_Y_OFFSET := 60
