@@ -67,6 +67,7 @@ jobs:
 
     - name: Building Image
       run: |
+        echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
         cd twrp
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
@@ -75,9 +76,8 @@ jobs:
         mv recovery.img twrp-3.7.0_12-cap_sprout-${{ env.VERSION }}.img
         echo "Done building your twrp-3.7.0_12-cap_sprout-${{ env.VERSION }}.img"
 
-    - name: Set Properties
+    - name: Set Body
       run: |
-        echo "BUILD_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
         echo -e \
         "
         ## Unofficial Build for Nokia 5.3 (CAP_sprout)
@@ -87,9 +87,9 @@ jobs:
         * [Device Tree](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/tree/twrp-12.1)
         
         Build Device: CAP_sprout
-        Build Date: 12/25/2023
+        Build Date: ${{ env.BUILD_DATE }}
         Build Release: Unofficial Beta
-        Build Branch: 12.1 (v3.7.0)
+        Build Branch: 12.1 (v3.7.1)
         Compatibility: Android 12+
         Custom Version: ${{ env.VERSION }}
         
@@ -103,9 +103,7 @@ jobs:
         * Tell me more...
         
         ### How to flash?
-        Despite having A/B Partition Scheme, it has dedicated recovery ramdisk. You can install without using the usual A/B installation process.
-        
-        Now, assuming you already have unlocked bootloader, your PC has adb/fastboot installed, and platform tools. Let's begin.
+        Despite having A/B partition Scheme, it has dedicated recovery ramdisk. You can install without using the usual A/B installation process.
         
         Note: Flash at your own risk.
         1. Download the .img file from the release page.
@@ -121,8 +119,9 @@ jobs:
         * SebaUbuntu (for base device tree)
         
         ### What's new?
-        * Initial build.
-        * Sync with latest changes in source/manifest.
+        * Bumped to version 3.7.1 for android-12.1 branch.
+        * Synced with latest changes in source/manifest.
+        * Made some minor changes in device tree, removing unnecessary flags.
         
         ### Trigger Event
         _This build were compiled by triggering branch twrp-12.1 of current tree, triggered by a push event in [version makefile](https://github.com/cd-Crypton/custom_recovery_tree_nokia_cap_sprout/blob/twrp-12.1/version.mk)._
