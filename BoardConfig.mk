@@ -151,4 +151,4 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 TARGET_COPY_OUT_VENDOR := vendor
 
 # Maintainer/Version
-include $(DEVICE_PATH)/version.mk
+TW_DEVICE_VERSION := crypton-002
